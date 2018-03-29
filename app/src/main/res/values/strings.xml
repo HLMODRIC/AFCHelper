@@ -1,0 +1,66 @@
+<resources>
+    <!-- 主模块 4个菜单页 -->
+    <string name="app_name">AFC维护助手</string>
+    <string name="tab_menu_home">首页</string>
+    <string name="tab_menu_theory">知识</string>
+    <string name="tab_menu_search">查询</string>
+    <string name="tab_menu_video">视频</string>
+
+    <string name="press_again_exit">退出</string>
+    <!-- 主页面 -->
+    <string name="home_button_text_1">线路信息</string>
+    <string name="home_button_text_2">公司制度</string>
+    <string name="home_button_text_3">会议纪要</string>
+    <string name="home_button_text_4">下发文件</string>
+    <string name="home_button_text_5">岗位职责</string>
+    <string name="home_button_text_6">工作相关</string>
+    <string name="home_button_text_7">应急预案</string>
+
+    <!-- 查询页面 -->
+    <string name="search_tab_text_1">TVM相关</string>
+    <string name="search_tab_text_2">GATE相关</string>
+    <string name="search_tab_text_3">车站相关</string>
+    <string name="search_tab_text_4">维修相关</string>
+    <string name="search_button_text_1">CHS代码查询</string>
+    <string name="search_button_text_2">BNR代码查询</string>
+    <string name="search_button_text_3">MBC110代码查询</string>
+    <string name="search_button_text_4">MBC120代码查询</string>
+    <string name="search_button_text_5">刷卡代码查询</string>
+    <string name="search_button_text_6">车站IP查询</string>
+    <string name="search_button_text_7">螺丝查询</string>
+    <string name="search_button_text_8">线标查询</string>
+
+    <!-- 知识页面 -->
+    <string name="theory_tab_text_1">理论知识</string>
+    <string name="theory_tab_text_2">维护知识</string>
+    <string name="theory_button_text_1">AFC系统</string>
+    <string name="theory_button_text_2">TVM系统</string>
+    <string name="theory_button_text_3">GATE系统</string>
+    <string name="theory_button_text_4">POST系统</string>
+    <string name="theory_button_text_5">软件通信</string>
+    <string name="theory_button_text_6">TVM各模块详细</string>
+    <string name="theory_button_text_7">GATE各模块详细</string>
+    <string name="theory_button_text_8">其他</string>
+
+
+    <!-- NavigationView页面 -->
+    <string name="nav_item_1">收藏文章</string>
+    <string name="nav_item_2">收藏视频</string>
+    <string name="nav_item_3">正文字体</string>
+    <string name="nav_item_4">检查更新</string>
+    <string name="nav_item_5">关于</string>
+    <string name="nav_item_6">注销登录</string>
+
+    <!-- Login页面 -->
+    <string name="login_tv_title">登录</string>
+    <string name="login_ev_username">账号</string>
+    <string name="login_ev_password">密码</string>
+    <string name="loin_btn_login">登录</string>
+
+
+    <!-- list页面 -->
+    <string name="content_tab_text">内容</string>
+    <string name="recycler_list_tab_text">标题</string>
+
+
+</resources>
