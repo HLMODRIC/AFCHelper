@@ -23,7 +23,7 @@ public class MainActivity extends SupportActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //数据库操作
-        DBManager.openDatabase (getApplicationContext ());
+        DBManager.openDatabase(getApplicationContext ());
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.init();   //所有子类都将继承这些相同的属性
         setContentView(R.layout.activity_main);
