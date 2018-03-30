@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ import butterknife.Unbinder;
 public class ContentFragment extends BaseBackFragment implements View.OnTouchListener {
 
     private Data datas;
-    private List<String> imgUrlList;
+    private ArrayList<String> imgUrlList;
     private float x,y;
     private View view;
     private MarkdownView mMarkdownView;
@@ -77,6 +78,17 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
         // 入场动画结束后执行  优化,防动画卡顿
 
         _mActivity.getWindow ().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+    }
+
+    //后退键监听
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId ()) {
+            case android.R.id.home:
+                getActivity ().onBackPressed ();
+                break;
+        }
+        return super.onOptionsItemSelected (item);
     }
 
     @Override
@@ -148,9 +160,9 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     }
 
     //使用正则表达式提取中括号中的内容
-    public static List<String> extractMessageByRegular(String msg){
+    public static ArrayList<String> extractMessageByRegular(String msg){
 
-        List<String> list= new ArrayList<> ();
+        ArrayList<String> list= new ArrayList<> ();
         Pattern p = Pattern.compile("!\\[(.*?)\\]\\((.*?)\\)");
         Matcher m = p.matcher(msg);
         while(m.find()){
@@ -199,7 +211,8 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
         //查看图片url
         @JavascriptInterface
         public void click(String url){
-            //
+            extraTransaction()
+                    .start(PhotoViewFragment.newInstance (imgUrlList,getUrlPosition (url)));
 
         }
     }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
 import com.hl.afchelper.ui.fragment.home.HomeTabFragment;
 import com.hl.afchelper.ui.fragment.knowledge.KnowledgeTabFragment;
@@ -15,6 +16,7 @@ import com.hl.afchelper.ui.fragment.search.SearchTabFragment;
 import com.hl.afchelper.ui.fragment.video.VideoTabFragment;
 import com.hl.afchelper.ui.view.BottomBar;
 import com.hl.afchelper.ui.view.BottomBarTab;
+import com.squareup.leakcanary.RefWatcher;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -22,9 +24,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * Created by YoKeyword on 16/6/30.
  */
 public class MainFragment extends SupportFragment {
-    private static final int REQ_MSG = 10;
-
-    public static final int FIRST = 0;
+     public static final int FIRST = 0;
     public static final int SECOND = 1;
     public static final int THIRD = 2;
     public static final int FOUR = 3;
@@ -82,7 +82,7 @@ public class MainFragment extends SupportFragment {
 
         mBottomBar
                 .addItem(new BottomBarTab(_mActivity, R.drawable.tab_home,getString(R.string.tab_menu_home)))
-                .addItem(new BottomBarTab (_mActivity, R.drawable.tab_theory,getString(R.string.tab_menu_theory)))
+                .addItem(new BottomBarTab (_mActivity, R.drawable.tab_theory,getString(R.string.tab_menu_knowledge)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.tab_video,getString(R.string.tab_menu_video)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.tab_search,getString(R.string.tab_menu_search)));
 
@@ -119,4 +119,11 @@ public class MainFragment extends SupportFragment {
     public void startBrotherFragment(SupportFragment targetFragment) {
         start(targetFragment);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy ();
+        RefWatcher refWatcher = MyApplication.getRefWatcher (getActivity ());
+        refWatcher.watch (this);
     }
+}

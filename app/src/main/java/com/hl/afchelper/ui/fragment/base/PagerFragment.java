@@ -10,12 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
 import com.hl.afchelper.adapter.RecyclerAdapter;
 import com.hl.afchelper.entity.Data;
 import com.hl.afchelper.entity.db.MyDBOpenHelper;
 import com.hl.afchelper.listener.OnItemClickListener;
 import com.hl.afchelper.ui.fragment.MainFragment;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 
@@ -72,8 +74,7 @@ public class PagerFragment extends SupportFragment{
                 // 因为启动的MsgFragment是MainFragment的兄弟Fragment,所以需要MainFragment.start()
 
                 // 也可以像使用getParentFragment()的方式,拿到父Fragment来操作 或者使用 EventBusActivityScope
-                assert getParentFragment() != null;
-                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(ListFragment.newInstance(mData.get (position).getNew_content ()));
+                ((MainFragment) getParentFragment().getParentFragment()).startBrotherFragment(ListFragment.newInstance(mData.get (position).getNew_title (),mData.get (position).getNew_content ()));
             }
         });
 
@@ -90,7 +91,7 @@ public class PagerFragment extends SupportFragment{
            Integer mid = mCursor.getInt (mCursor.getColumnIndex ("id"));
             String titleStr = mCursor.getString (mCursor.getColumnIndex ("title"));
             String contentStr = mCursor.getString (mCursor.getColumnIndex ("content"));
-            String imageId = mCursor.getString (mCursor.getColumnIndex ("imageID"));
+            String imageId = mCursor.getString (mCursor.getColumnIndex ("imageUrl"));
             Data data = new Data (mid, titleStr, contentStr,imageId);
             mData.add (data);
         }
@@ -102,6 +103,13 @@ public class PagerFragment extends SupportFragment{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy ();
+        RefWatcher refWatcher = MyApplication.getRefWatcher (getActivity ());
+        refWatcher.watch (this);
     }
 
 }

@@ -17,7 +17,7 @@
         android:layout_below="@id/view_toolbar"
         android:background="@color/md_blue_500"
         app:navigationIcon="@drawable/item_back"
-        app:navigationContentDescription="@string/app_name"
+        app:navigationContentDescription="@string/content_tab_text"
         >
         <TextView
             android:id="@+id/toolbar_content_title"

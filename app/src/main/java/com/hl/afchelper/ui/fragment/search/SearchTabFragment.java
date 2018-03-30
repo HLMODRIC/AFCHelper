@@ -13,6 +13,8 @@ import android.widget.Button;
 import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
 import com.hl.afchelper.base.BaseMainFragment;
+import com.hl.afchelper.ui.fragment.MainFragment;
+import com.hl.afchelper.ui.fragment.base.ListFragment;
 import com.squareup.leakcanary.RefWatcher;
 
 public class SearchTabFragment extends BaseMainFragment {
@@ -27,18 +29,13 @@ public class SearchTabFragment extends BaseMainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search,container,false);
-        //initData ();
-        //initView ();
+        initView ();
         return view;
     }
 
     /**
-     * 初始化数据
-     */
-    private void initData(){}
-    /**
      * 初始化布局
-     *//*
+     */
     private void initView(){
         Button searchButton = view.findViewById (R.id.search_bt_1);
         Button searchButton2 = view.findViewById (R.id.search_bt_2);
@@ -46,60 +43,54 @@ public class SearchTabFragment extends BaseMainFragment {
         Button searchButton4 = view.findViewById (R.id.search_bt_4);
         Button searchButton5 = view.findViewById (R.id.search_bt_5);
         Button searchButton6 = view.findViewById (R.id.search_bt_6);
-        final SearchDataHelper searchDataHelper = new SearchDataHelper ();
         searchButton.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.search_button_text_1);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_1), "select * from chs_code"));
             }
         });
 
         searchButton2.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.search_button_text_2);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_2), "select * from bnr_code"));
+
             }
         });
 
         searchButton3.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.search_button_text_3);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_3), "select * from mbc_code"));
+
 
             }
         });
         searchButton4.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.search_button_text_4);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_4), "select * from card_code"));
 
             }
         });
         searchButton5.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.search_button_text_5);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_5), "select * from ip_code"));
 
             }
         });
         searchButton6.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.search_button_text_6);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_6), "select * from screw_code"));
 
             }
         });
     }
-*/
+
     @Override public void onDestroy() {
         super.onDestroy();
-        System.gc ();
         RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity());
        refWatcher.watch(this);
     }

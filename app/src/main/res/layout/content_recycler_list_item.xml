@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    style="@style/me_common_item_relativeLayout_style"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/iv_title"
+        android:scaleType="centerInside"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/txt_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_toEndOf="@+id/iv_title"
+        android:text="@string/tab_menu_home"
+        android:textSize="@dimen/textSize_15"
+        android:textColor="@color/bg_black"
+        android:lines="1"
+        />
+</RelativeLayout>

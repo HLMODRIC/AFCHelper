@@ -40,7 +40,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
 
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recycler_list_item, parent, false);
+        View view = mInflater.inflate(R.layout.content_recycler_list_item, parent, false);
         final VH holder = new VH(view);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +68,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
                 .error(R.drawable.load_error);
 
         Glide.with(mContext)
-                .load(data.getImageUrl ())
+                .load(R.drawable.item_list_text)
                 .apply (options)
 
                 .into(holder.img);
@@ -78,6 +78,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
     public void setDatas(ArrayList<Data> data) {
         mData.clear();
         mData.addAll(data);
+        notifyDataSetChanged();
     }
 
     @Override

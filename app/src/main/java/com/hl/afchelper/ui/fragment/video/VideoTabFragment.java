@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
 import com.hl.afchelper.adapter.PagerAdapter;
+import com.hl.afchelper.adapter.VideoPagerAdapter;
 import com.hl.afchelper.base.BaseMainFragment;
 import com.hl.afchelper.ui.view.MyToolBar;
 import com.squareup.leakcanary.RefWatcher;
@@ -50,31 +51,15 @@ public class VideoTabFragment extends BaseMainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate (R.layout.fragment_video, container, false);
-
-        initData ();
-        initView ();
         unbinder = ButterKnife.bind (this, view);
         return view;
     }
-
-    /**
-     * 初始化数据
-     */
-    private void initData() {
-    }
-
-    /**
-     * 初始化布局
-     */
-    private void initView() {
-    }
-
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView (savedInstanceState);
         //这里注意的是，因为我是在fragment中创建MyFragmentPagerAdapter，所以要传getChildFragmentManager()
-        mVpVideo.setAdapter (new PagerAdapter (getChildFragmentManager (), new String[]{"TVM", "GATE", "POST", "其他"}));
+        mVpVideo.setAdapter (new VideoPagerAdapter (getChildFragmentManager (), new String[]{"TVM", "GATE", "POST", "其他"}));
         //在设置viewpager页面滑动监听时，创建TabLayout的滑动监听
         mTlVideo.setupWithViewPager (mVpVideo);
     }
@@ -90,5 +75,6 @@ public class VideoTabFragment extends BaseMainFragment {
     public void onDestroyView() {
         super.onDestroyView ();
         unbinder.unbind ();
+
     }
 }

@@ -42,25 +42,9 @@ public class KnowledgeTabFragment extends BaseMainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate (R.layout.fragment_knowledge, container, false);
-
-        initData ();
-        initView ();
         unbinder = ButterKnife.bind (this, view);
         return view;
     }
-
-    /**
-     * 初始化数据
-     */
-    private void initData() {
-    }
-
-    /**
-     * 初始化布局
-     */
-    private void initView() {
-    }
-
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {

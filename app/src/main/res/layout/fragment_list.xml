@@ -17,7 +17,7 @@
         android:layout_height="45dp"
         android:background="@color/md_blue_500"
         app:navigationIcon="@drawable/item_back"
-        app:navigationContentDescription="@string/app_name"
+        app:navigationContentDescription="@string/recycler_list_tab_text"
         >
         <TextView
             android:id="@+id/toolbar_title"

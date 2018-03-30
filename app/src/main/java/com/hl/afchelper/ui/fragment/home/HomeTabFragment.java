@@ -1,5 +1,7 @@
 package com.hl.afchelper.ui.fragment.home;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +19,11 @@ import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
 import com.hl.afchelper.Until.GlideImageLoader;
 import com.hl.afchelper.base.BaseMainFragment;
+import com.hl.afchelper.entity.Data;
+import com.hl.afchelper.entity.db.MyDBOpenHelper;
+import com.hl.afchelper.ui.fragment.MainFragment;
+import com.hl.afchelper.ui.fragment.base.ListFragment;
+import com.hl.afchelper.ui.fragment.base.PhotoViewFragment;
 import com.hl.afchelper.ui.view.MyToolBar;
 import com.squareup.leakcanary.RefWatcher;
 import com.youth.banner.Banner;
@@ -74,8 +81,7 @@ public class HomeTabFragment extends BaseMainFragment {
     TextView mHomeItemTv7;
     @BindView(R.id.ll_item7)
     LinearLayout mLlItem7;
-    private List<String> ListPhotos;
-    private ScheduledExecutorService scheduledExecutorService;
+    private ArrayList<String> ListPhotos;
 
     public static HomeTabFragment newInstance() {
         Bundle args = new Bundle ();
@@ -113,7 +119,6 @@ public class HomeTabFragment extends BaseMainFragment {
      * 初始化布局
      */
     private void initView() {
-
         //Toolbar
         mToolbar.setTitle ("");
         assert (getActivity()) != null;
@@ -138,73 +143,48 @@ public class HomeTabFragment extends BaseMainFragment {
         mBanner.setOnBannerListener (new OnBannerListener () {
             @Override
             public void OnBannerClick(final int position) {
-                switch (position) {
-                   /* case 0:   //图片1
-                        ImagePagerActivity.startImagePagerActivity (getActivity (), ListPhotos, position, new ImagePagerActivity.ImageSize (50, 50));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(PhotoViewFragment.newInstance (ListPhotos,position));
 
-                        break;
-                    case 1:      //图片2
-                        ImagePagerActivity.startImagePagerActivity (getActivity (), ListPhotos, position, new ImagePagerActivity.ImageSize (50, 50));
-                        break;
-                    case 2:     //图片3
-                        ImagePagerActivity.startImagePagerActivity (getActivity (), ListPhotos, position, new ImagePagerActivity.ImageSize (50, 50));
-                        break;
-                    case 3:      //图片4
-                        ImagePagerActivity.startImagePagerActivity (getActivity (), ListPhotos, position, new ImagePagerActivity.ImageSize (50, 50));
-                        break;
-                    case 4:        //图片5
-                        ImagePagerActivity.startImagePagerActivity (getActivity (), ListPhotos, position, new ImagePagerActivity.ImageSize (50, 50));
-                        break;*/
-                    default:
-                        break;
-                }
             }
         });
-/*
-        final SearchDataHelper searchDataHelper = new SearchDataHelper ();
+
         mLlItem1.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.home_button_text_1);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.home_button_text_1), "select * from basic where id < 100"));
             }
         });
         mLlItem2.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.home_button_text_2);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.home_button_text_2),"select * from basic where id between 100 and 199"));
             }
         });
         mLlItem3.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.home_button_text_3);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.home_button_text_3),"select * from basic where id between 200 and 299"));
             }
         });
         mLlItem4.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.home_button_text_4);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.home_button_text_4),"select * from basic where id between 300 and 399"));
             }
         });
         mLlItem5.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.home_button_text_5);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.home_button_text_5),"select * from basic where id between 400 and 499"));
             }
         });
         mLlItem6.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tableName = getResources ().getString (R.string.home_button_text_6);
-                getData (searchDataHelper.ShowData (tableName));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.home_button_text_6),"select * from basic where id between 500 and 599"));
             }
         });
-*/
+
     }
 
 
@@ -215,19 +195,6 @@ public class HomeTabFragment extends BaseMainFragment {
         refWatcher.watch (this);
     }
 
-
-    @Override
-    public void onStop() {
-        // TODO Auto-generated method stub
-        super.onStop ();
-        if (scheduledExecutorService != null) {
-            scheduledExecutorService.shutdown ();
-            scheduledExecutorService = null;
-        }
-        mBanner.stopAutoPlay ();
-    }
-
-    /*
         //数据库数据获取
         private void getData(String sql) {
             //db数据库
@@ -246,15 +213,7 @@ public class HomeTabFragment extends BaseMainFragment {
             cursor.close ();
             dbHelper.close ();
             dbRead.close ();
-            Intent intent = new Intent (getActivity (), ListActivity.class);
-            Bundle bundle = new Bundle ();
-            bundle.putString ("table_name", tableName);
-            bundle.putParcelableArrayList ("data", datas);
-            intent.putExtras (bundle);
-            bundle.clear ();
-            startActivity (intent);
         }
-    */
     @Override
     public void onDestroyView() {
         super.onDestroyView ();
