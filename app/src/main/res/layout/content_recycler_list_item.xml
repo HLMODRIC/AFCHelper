@@ -20,7 +20,7 @@
         android:layout_toEndOf="@+id/iv_title"
         android:text="@string/tab_menu_home"
         android:textSize="@dimen/textSize_15"
-        android:textColor="@color/bg_black"
+        android:textColor="@color/text"
         android:lines="1"
         />
 </RelativeLayout>

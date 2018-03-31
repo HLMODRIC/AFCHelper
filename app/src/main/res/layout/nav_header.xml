@@ -3,7 +3,11 @@
                 android:layout_width="match_parent"
                 android:id="@+id/nav_header"
                 android:layout_height="180dp"
-                android:background="@color/md_blue_500"
+                android:background="@color/toolbar"
                 android:padding="10dp">
+    <Button
+        android:id="@+id/button_night"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

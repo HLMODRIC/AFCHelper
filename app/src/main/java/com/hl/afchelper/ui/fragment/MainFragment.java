@@ -1,12 +1,17 @@
 package com.hl.afchelper.ui.fragment;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
@@ -17,6 +22,8 @@ import com.hl.afchelper.ui.fragment.video.VideoTabFragment;
 import com.hl.afchelper.ui.view.BottomBar;
 import com.hl.afchelper.ui.view.BottomBarTab;
 import com.squareup.leakcanary.RefWatcher;
+
+import java.util.Objects;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -32,6 +39,8 @@ public class MainFragment extends SupportFragment {
     private SupportFragment[] mFragments = new SupportFragment[4];
 
     private BottomBar mBottomBar;
+    private Button mButton;
+    private NavigationView navigationView;
 
 
     public static MainFragment newInstance() {
@@ -78,7 +87,22 @@ public class MainFragment extends SupportFragment {
     }
 
     private void initView(View view) {
+        navigationView = view.findViewById (R.id.nav_view);
+        View headerLayout = navigationView.getHeaderView(0);
         mBottomBar = (BottomBar) view.findViewById(R.id.bottomBar);
+        mButton = headerLayout.findViewById (R.id.button_night);
+        mButton.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                if (mode == Configuration.UI_MODE_NIGHT_YES) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                Objects.requireNonNull (getActivity ()).recreate();
+            }
+        });
 
         mBottomBar
                 .addItem(new BottomBarTab(_mActivity, R.drawable.tab_home,getString(R.string.tab_menu_home)))

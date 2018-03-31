@@ -19,6 +19,7 @@
 
     <com.hl.afchelper.ui.view.BottomBar
         android:id="@+id/bottomBar"
+        android:background="@color/list_item"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottombar_wechat_height"
         android:layout_gravity="bottom"/>

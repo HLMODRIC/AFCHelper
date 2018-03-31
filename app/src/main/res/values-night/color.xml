@@ -3,6 +3,9 @@
     <color name="bg_black">#000000</color>
     <color name="bg_white">#FFFFFF</color>
     <color name="bg_topbar">#FCFCFC</color>
+
+
+
     <color name="bg_gray">#00F1F1F1</color>
     <color name="colorBlack">#000000</color>
     <color name="colorPrimary">#3F51B5</color>
@@ -12,17 +15,19 @@
     <color name="radio_button">#8a8a8a</color>
     <color name="tab_unselect">#c9c9c9</color>
 
-
     <!-- 颜色 -->
-    <color name="toolbar">#FF2196F3</color>
-    <color name="toolbar_title">#FFFFFFFF</color>
-    <color name="list_item">#FFFFFFFF</color>
-    <color name="botton">#FFFFFFFF</color>
-    <color name="text">#000000</color>
-    <color name="search_title">#EEEEEE</color>
-    <color name="background">#F5F5F5</color>
-    <color name="tablayout">#F5F5F5</color>
+    <color name="toolbar">#FF1A1A1A</color>
+    <color name="toolbar_title">#c8c8c8</color>
+    <color name="list_item">#FF1A1A1A</color>
+    <color name="botton">#FF1A1A1A</color>
+    <color name="text">#c8c8c8</color>
+    <color name="search_title">#FF303030</color>
+    <color name="background">#000000</color>
+    <color name="tablayout">#FF1A1A1A</color>
     <color name="bottonbar">#c8c8c8</color>
+
+
+
 
 
     <color name="text_gray">#8D7A71</color>

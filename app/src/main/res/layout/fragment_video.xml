@@ -9,13 +9,13 @@
         android:id="@+id/view_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/status_bar_height"
-        android:background="@color/md_blue_500" />
+        android:background="@color/toolbar" />
 
     <com.hl.afchelper.ui.view.MyToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:background="@color/md_blue_500"
+        android:background="@color/toolbar"
         app:title=""
         >
         <TextView
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tab_menu_video"
-            android:textColor="@color/white"
+            android:textColor="@color/toolbar_title"
             android:textSize="18sp"
             android:layout_gravity="center"/>
     </com.hl.afchelper.ui.view.MyToolBar>
@@ -32,6 +32,7 @@
         android:id="@+id/tl_video"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:background="@color/tablayout"
         app:tabSelectedTextColor="@color/md_blue_500"
         app:tabIndicatorColor="@color/md_blue_500"
         >

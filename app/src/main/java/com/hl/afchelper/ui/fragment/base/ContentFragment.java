@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -16,6 +18,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
@@ -117,6 +120,17 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     private void initView() {
         mMarkdownView = view.findViewById (R.id.markdown_view);
         imgUrlList = extractMessageByRegular (datas.getNew_content ());
+       Toolbar mToolBar = view.findViewById (R.id.toolbar);
+        setHasOptionsMenu(true);
+       TextView mToolbarTitle = view.findViewById (R.id.toolbar_title);
+        //Toolbar
+        mToolBar.setTitle ("");
+        //生成选项菜单
+        mToolBar.inflateMenu (R.menu.list_menu);
+        //设置溢出菜单的icon，显示、隐藏溢出菜单弹出的窗口
+        mToolBar.showOverflowMenu ();
+        ((AppCompatActivity ) getActivity()).setSupportActionBar(mToolBar);
+        //mToolbarTitle.setText (table);
     }
 
     /**
