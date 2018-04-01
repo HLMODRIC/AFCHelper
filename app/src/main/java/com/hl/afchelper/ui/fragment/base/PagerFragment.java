@@ -57,6 +57,8 @@ public class PagerFragment extends SupportFragment{
         return view;
     }
 
+
+
     private void initView(View view) {
         mRecy = (RecyclerView) view.findViewById(R.id.recycler_view);
         mAdapter = new RecyclerAdapter (_mActivity);

@@ -6,8 +6,13 @@ import android.support.annotation.Nullable;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.hl.afchelper.entity.db.DBManager;
+
 import com.hl.afchelper.ui.fragment.MainFragment;
 import com.squareup.leakcanary.RefWatcher;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
@@ -22,7 +27,7 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //数据库操作
+         //数据库操作
         DBManager.openDatabase(getApplicationContext ());
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.init();   //所有子类都将继承这些相同的属性
@@ -52,5 +57,11 @@ public class MainActivity extends SupportActivity {
     public FragmentAnimator onCreateFragmentAnimator() {
         // 设置横向(和安卓4.x动画相同)
         return new DefaultHorizontalAnimator ();
+    }
+
+    @Override
+    protected void onResume() {
+        MyApplication.me().refreshResources(this);
+        super.onResume();
     }
 }

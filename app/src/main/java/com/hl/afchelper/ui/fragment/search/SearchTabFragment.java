@@ -89,6 +89,12 @@ public class SearchTabFragment extends BaseMainFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        MyApplication.me().refreshResources(getActivity ());
+        super.onResume();
+    }
+
     @Override public void onDestroy() {
         super.onDestroy();
         RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity());

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +23,6 @@ import com.hl.afchelper.ui.fragment.video.VideoTabFragment;
 import com.hl.afchelper.ui.view.BottomBar;
 import com.hl.afchelper.ui.view.BottomBarTab;
 import com.squareup.leakcanary.RefWatcher;
-
-import java.util.Objects;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -91,16 +90,17 @@ public class MainFragment extends SupportFragment {
         View headerLayout = navigationView.getHeaderView(0);
         mBottomBar = (BottomBar) view.findViewById(R.id.bottomBar);
         mButton = headerLayout.findViewById (R.id.button_night);
+        Button mButton2 = headerLayout.findViewById (R.id.button_light);
         mButton.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View view) {
-                int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                if (mode == Configuration.UI_MODE_NIGHT_YES) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-                Objects.requireNonNull (getActivity ()).recreate();
+                MyApplication.me().setTheme((AppCompatActivity)getActivity (), true);
+            }
+        });
+        mButton2.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                MyApplication.me().setTheme((AppCompatActivity)getActivity (), false);
             }
         });
 
@@ -149,5 +149,11 @@ public class MainFragment extends SupportFragment {
         super.onDestroy ();
         RefWatcher refWatcher = MyApplication.getRefWatcher (getActivity ());
         refWatcher.watch (this);
+    }
+
+    @Override
+    public void onResume() {
+        MyApplication.me().refreshResources(getActivity ());
+        super.onResume();
     }
 }

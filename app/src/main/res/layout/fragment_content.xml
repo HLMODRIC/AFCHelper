@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:Android="http://schemas.android.com/tools">
 
     <View
         android:id="@+id/view_toolbar"
@@ -16,8 +17,6 @@
         android:layout_height="45dp"
         android:layout_below="@id/view_toolbar"
         android:background="@color/toolbar"
-        app:navigationIcon="@drawable/item_back"
-        app:navigationContentDescription="@string/content_tab_text"
         >
         <TextView
             android:id="@+id/toolbar_content_title"

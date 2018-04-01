@@ -126,7 +126,7 @@ public class ListFragment extends BaseBackFragment {
     private void initView() {
         mSearchDataHelper = new SearchDataHelper ();
         mRecyclerView = view.findViewById (R.id.recycler_list);
-        mToolBar = view.findViewById (R.id.toolbar);
+        mToolBar = view.findViewById (R.id.toolbar_list);
         setHasOptionsMenu(true);
         mToolbarTitle = view.findViewById (R.id.toolbar_title);
         mAdapter = new ListRecyclerAdapter(_mActivity);

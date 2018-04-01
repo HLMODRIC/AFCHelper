@@ -52,16 +52,16 @@ public class VideoTabFragment extends BaseMainFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate (R.layout.fragment_video, container, false);
         unbinder = ButterKnife.bind (this, view);
+        mVpVideo.setAdapter (new VideoPagerAdapter (getChildFragmentManager (), new String[]{"TVM", "GATE", "POST", "其他"}));
+        //在设置viewpager页面滑动监听时，创建TabLayout的滑动监听
+        mTlVideo.setupWithViewPager (mVpVideo);
         return view;
     }
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView (savedInstanceState);
-        //这里注意的是，因为我是在fragment中创建MyFragmentPagerAdapter，所以要传getChildFragmentManager()
-        mVpVideo.setAdapter (new VideoPagerAdapter (getChildFragmentManager (), new String[]{"TVM", "GATE", "POST", "其他"}));
-        //在设置viewpager页面滑动监听时，创建TabLayout的滑动监听
-        mTlVideo.setupWithViewPager (mVpVideo);
+    public void onResume() {
+        MyApplication.me().refreshResources(getActivity ());
+        super.onResume();
     }
 
     @Override

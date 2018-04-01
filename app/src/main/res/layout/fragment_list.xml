@@ -12,12 +12,11 @@
         android:background="@color/toolbar" />
 
     <com.hl.afchelper.ui.view.MyToolBar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_list"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
         android:background="@color/toolbar"
-        app:navigationIcon="@drawable/item_back"
-        app:navigationContentDescription="@string/recycler_list_tab_text"
         >
         <TextView
             android:id="@+id/toolbar_title"

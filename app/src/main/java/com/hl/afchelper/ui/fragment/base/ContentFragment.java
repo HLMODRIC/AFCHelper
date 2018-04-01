@@ -2,12 +2,14 @@ package com.hl.afchelper.ui.fragment.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -18,10 +20,13 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hl.afchelper.MainActivity;
 import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
+import com.hl.afchelper.Until.ConfigUtil;
 import com.hl.afchelper.adapter.RecyclerAdapter;
 import com.hl.afchelper.base.BaseBackFragment;
 import com.hl.afchelper.entity.Data;
@@ -48,8 +53,8 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     private float x,y;
     private View view;
     private MarkdownView mMarkdownView;
-    private MyToolBar mMyToolBar;
     private static final String ARG_DATA = "arg_data";
+    private static String THEME_KEY = "theme_mode";
 
     public static ContentFragment newInstance(Data data) {
         Bundle args = new Bundle ();
@@ -57,6 +62,12 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
         ContentFragment fragment = new ContentFragment ();
         fragment.setArguments (args);
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        MyApplication.me().refreshResources(getActivity ());
+        super.onResume();
     }
 
     @Override
@@ -70,9 +81,15 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
         view = inflater.inflate (R.layout.fragment_content, container, false);
         //初始化数据和布局
         initData ();
+        return attachToSwipeBack (view);
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView (savedInstanceState);
+        //这里注意的是，因为我是在fragment中创建MyFragmentPagerAdapter，所以要传getChildFragmentManager()
         initView ();
         initWebView ();
-        return attachToSwipeBack (view);
     }
 
     @Override
@@ -120,10 +137,12 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     private void initView() {
         mMarkdownView = view.findViewById (R.id.markdown_view);
         imgUrlList = extractMessageByRegular (datas.getNew_content ());
-       Toolbar mToolBar = view.findViewById (R.id.toolbar);
+       MyToolBar mToolBar = view.findViewById (R.id.toolbar);
         setHasOptionsMenu(true);
-       TextView mToolbarTitle = view.findViewById (R.id.toolbar_title);
+        initToolbarNav (mToolBar);
+       TextView mToolbarTitle = view.findViewById (R.id.toolbar_content_title);
         //Toolbar
+        mToolbarTitle.setText (datas.getNew_title ());
         mToolBar.setTitle ("");
         //生成选项菜单
         mToolBar.inflateMenu (R.menu.list_menu);
@@ -138,9 +157,15 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
      */
     private void initWebView() {
         InternalStyleSheet css = new Github ();
+        if (ConfigUtil.getBoolean (THEME_KEY, false)) {
+            css.addRule("body",  "font-size: 14.5px", "padding: 0px","color: #c8c8c8","background-color: #1A1A1A");
+            } else {
+            css.addRule("body", "font-size: 14.5px",  "padding: 0px");
+
+        }
+
         css.addRule("table th", "padding: 2px 4px");
         css.addRule("table td", "padding: 2px 4px");
-        css.addRule("body",  "padding: 0px");
         css.addRule(".scrollup", "width: 40px", "height: 40px","background-color: #2196F3","bottom: 25px", "right: 25px");
         css.addRule ("h1","font-weight: 700");
         css.addRule ("h2","font-weight: 700");
@@ -151,7 +176,6 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
         mMarkdownView.addStyleSheet(css);
 
         mMarkdownView.loadMarkdown(datas.getNew_content ());
-
         mMarkdownView.setWebViewClient(new WebViewClient (){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -213,6 +237,11 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
             }
         }
         return false;
+    }
+
+    @Override
+    protected void initToolbarNav(Toolbar toolbar) {
+        super.initToolbarNav (toolbar);
     }
 
     //JS
