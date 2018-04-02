@@ -43,6 +43,7 @@
     <!-- list页面 -->
     <string name="content_tab_text">内容</string>
     <string name="recycler_list_tab_text">标题</string>
+    <string name="title_activity_video">VideoActivity</string>
 
 
 </resources>

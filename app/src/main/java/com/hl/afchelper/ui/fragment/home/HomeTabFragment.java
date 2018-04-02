@@ -7,12 +7,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.hl.afchelper.MyApplication;
@@ -24,7 +26,6 @@ import com.hl.afchelper.entity.db.MyDBOpenHelper;
 import com.hl.afchelper.ui.fragment.MainFragment;
 import com.hl.afchelper.ui.fragment.base.ListFragment;
 import com.hl.afchelper.ui.fragment.base.PhotoViewFragment;
-import com.hl.afchelper.ui.view.MyToolBar;
 import com.squareup.leakcanary.RefWatcher;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -76,7 +77,7 @@ public class HomeTabFragment extends BaseMainFragment {
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
     @BindView(R.id.toolbar)
-    MyToolBar mToolbar;
+    Toolbar mToolbar;
     @BindView(R.id.home_item_tv_7)
     TextView mHomeItemTv7;
     @BindView(R.id.ll_item7)
@@ -89,7 +90,11 @@ public class HomeTabFragment extends BaseMainFragment {
         fragment.setArguments (args);
         return fragment;
     }
-
+    @Override
+    public void onResume() {
+        MyApplication.me().refreshResources(getActivity ());
+        super.onResume();
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -218,6 +223,21 @@ public class HomeTabFragment extends BaseMainFragment {
     public void onDestroyView() {
         super.onDestroyView ();
         unbinder.unbind ();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            //结束轮播
+            mBanner.stopAutoPlay();
+        } else {
+            //开始轮播
+            mBanner.startAutoPlay();
+        }
+
+
+
     }
 }
 

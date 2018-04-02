@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +27,16 @@ public class SearchTabFragment extends BaseMainFragment {
         fragment.setArguments (args);
         return fragment;
     }
+
+    @Override
+    public void onResume() {
+        MyApplication.me().refreshResources(getActivity ());
+        super.onResume();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search,container,false);
+
         initView ();
         return view;
     }
@@ -89,11 +97,6 @@ public class SearchTabFragment extends BaseMainFragment {
         });
     }
 
-    @Override
-    public void onResume() {
-        MyApplication.me().refreshResources(getActivity ());
-        super.onResume();
-    }
 
     @Override public void onDestroy() {
         super.onDestroy();

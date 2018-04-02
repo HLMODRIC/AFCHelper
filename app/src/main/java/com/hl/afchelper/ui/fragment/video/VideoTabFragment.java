@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,6 @@ import com.hl.afchelper.R;
 import com.hl.afchelper.adapter.PagerAdapter;
 import com.hl.afchelper.adapter.VideoPagerAdapter;
 import com.hl.afchelper.base.BaseMainFragment;
-import com.hl.afchelper.ui.view.MyToolBar;
 import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
@@ -33,7 +34,7 @@ public class VideoTabFragment extends BaseMainFragment {
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
     @BindView(R.id.toolbar)
-    MyToolBar mToolbar;
+    Toolbar mToolbar;
     @BindView(R.id.tl_video)
     TabLayout mTlVideo;
     @BindView(R.id.vp_video)
@@ -46,11 +47,16 @@ public class VideoTabFragment extends BaseMainFragment {
         fragment.setArguments (args);
         return fragment;
     }
-
+    @Override
+    public void onResume() {
+        MyApplication.me().refreshResources(getActivity ());
+        super.onResume();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate (R.layout.fragment_video, container, false);
+
         unbinder = ButterKnife.bind (this, view);
         mVpVideo.setAdapter (new VideoPagerAdapter (getChildFragmentManager (), new String[]{"TVM", "GATE", "POST", "其他"}));
         //在设置viewpager页面滑动监听时，创建TabLayout的滑动监听
@@ -58,11 +64,7 @@ public class VideoTabFragment extends BaseMainFragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        MyApplication.me().refreshResources(getActivity ());
-        super.onResume();
-    }
+
 
     @Override
     public void onDestroy() {

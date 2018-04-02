@@ -1,5 +1,7 @@
 package com.hl.afchelper.ui.fragment.base;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -7,13 +9,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,21 +29,16 @@ import android.widget.TextView;
 import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
 import com.hl.afchelper.Until.SearchDataHelper;
+import com.hl.afchelper.VideoActivity;
 import com.hl.afchelper.adapter.ListRecyclerAdapter;
-import com.hl.afchelper.adapter.RecyclerAdapter;
 import com.hl.afchelper.base.BaseBackFragment;
 import com.hl.afchelper.entity.Data;
 import com.hl.afchelper.entity.db.MyDBOpenHelper;
 import com.hl.afchelper.listener.OnItemClickListener;
-import com.hl.afchelper.ui.fragment.MainFragment;
-import com.hl.afchelper.ui.view.MyToolBar;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.jzvd.JZVideoPlayerStandard;
 
 
@@ -59,7 +56,7 @@ public class ListFragment extends BaseBackFragment {
     private RecyclerView mRecyclerView;
     private SearchDataHelper mSearchDataHelper;
     private View view;
-    private MyToolBar mToolBar;
+    private Toolbar mToolBar;
     private Cursor mCursor;
 
 
@@ -75,9 +72,14 @@ public class ListFragment extends BaseBackFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
-        //绑定控件
+          //绑定控件
         sql = getArguments ().getString (ARG_SQL);
         table = getArguments ().getString (ARG_TABLE);
+    }
+    @Override
+    public void onResume() {
+        MyApplication.me().refreshResources(getActivity ());
+        super.onResume();
     }
 
 
@@ -150,15 +152,20 @@ public class ListFragment extends BaseBackFragment {
         mAdapter.setOnItemClickListener (new OnItemClickListener () {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-               if ((datas.get (position).getVideoUrl ().substring (0,3).equals ("file"))){
-                JZVideoPlayerStandard.startFullscreen(getActivity (),JZVideoPlayerStandard.class, Environment.getExternalStorageDirectory ()+"/AFCHelper/1.mp4", datas.get (position).getNew_title ());
-                }else {
+                String videoUrl = datas.get (position).getVideoUrl ();
+               if ((videoUrl.substring (videoUrl.lastIndexOf (".") + 1).equals ("mp4"))){
+                   JZVideoPlayerStandard.startFullscreen(getActivity (),JZVideoPlayerStandard.class, Environment.getExternalStorageDirectory ()+"/AFCHelper/1.mp4", "1111");
+                   //Intent intent = new Intent (getActivity (),VideoActivity.class);
+                   //startActivity (intent);
+               }else {
                    extraTransaction ()
                            .start (ContentFragment.newInstance (datas.get (position)));
                }
             }
         });
     }
+
+
 
     //后退键监听
     @Override
@@ -212,6 +219,9 @@ public class ListFragment extends BaseBackFragment {
         });
     }
 
+
+
+
     private void getData(String sql,String newText) {
 
         //db数据库
@@ -250,6 +260,11 @@ public class ListFragment extends BaseBackFragment {
             dbHelper.close ();
             dbRead.close ();
         }
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        //你的代码
+         super.onConfigurationChanged(newConfig);
     }
 
 

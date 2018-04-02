@@ -14,6 +14,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import cn.jzvd.JZVideoPlayer;
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
@@ -64,4 +65,8 @@ public class MainActivity extends SupportActivity {
         MyApplication.me().refreshResources(this);
         super.onResume();
     }
+
+
+
+
 }

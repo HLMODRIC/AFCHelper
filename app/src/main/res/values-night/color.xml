@@ -16,14 +16,14 @@
     <color name="tab_unselect">#c9c9c9</color>
 
     <!-- 颜色 -->
-    <color name="toolbar">#FF1A1A1A</color>
+    <color name="toolbar">#FF333333</color>
     <color name="toolbar_title">#c8c8c8</color>
-    <color name="list_item">#FF1A1A1A</color>
-    <color name="botton">#FF1A1A1A</color>
+    <color name="list_item">#FF3F3F3F</color>
+    <color name="botton">#FF3F3F3F</color>
     <color name="text">#c8c8c8</color>
     <color name="search_title">#FF303030</color>
-    <color name="background">#000000</color>
-    <color name="tablayout">#FF1A1A1A</color>
+    <color name="background">#FF363636</color>
+    <color name="tablayout">#FF3A3A3A</color>
     <color name="bottonbar">#c8c8c8</color>
 
 

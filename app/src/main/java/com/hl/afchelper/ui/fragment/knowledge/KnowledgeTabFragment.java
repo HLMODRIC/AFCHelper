@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,22 +38,21 @@ public class KnowledgeTabFragment extends BaseMainFragment {
         fragment.setArguments (args);
         return fragment;
     }
-
+    @Override
+    public void onResume() {
+        MyApplication.me().refreshResources(getActivity ());
+        super.onResume();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate (R.layout.fragment_knowledge, container, false);
+
         unbinder = ButterKnife.bind (this, view);
         mVpKnowledge.setAdapter (new PagerAdapter (getChildFragmentManager (),new String[]{"理论","维护"}));
         //在设置viewpager页面滑动监听时，创建TabLayout的滑动监听
         mTlKnowledge.setupWithViewPager (mVpKnowledge);
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        MyApplication.me().refreshResources(getActivity ());
-        super.onResume();
     }
 
 

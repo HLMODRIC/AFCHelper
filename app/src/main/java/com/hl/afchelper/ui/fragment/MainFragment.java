@@ -55,10 +55,15 @@ public class MainFragment extends SupportFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+
         initView(view);
         return view;
     }
-
+    @Override
+    public void onResume() {
+        MyApplication.me().refreshResources(getActivity ());
+        super.onResume();
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -151,9 +156,5 @@ public class MainFragment extends SupportFragment {
         refWatcher.watch (this);
     }
 
-    @Override
-    public void onResume() {
-        MyApplication.me().refreshResources(getActivity ());
-        super.onResume();
-    }
+
 }

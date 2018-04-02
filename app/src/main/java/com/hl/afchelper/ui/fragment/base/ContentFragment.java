@@ -1,15 +1,13 @@
 package com.hl.afchelper.ui.fragment.base;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -20,30 +18,22 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hl.afchelper.MainActivity;
 import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
 import com.hl.afchelper.Until.ConfigUtil;
-import com.hl.afchelper.adapter.RecyclerAdapter;
 import com.hl.afchelper.base.BaseBackFragment;
 import com.hl.afchelper.entity.Data;
-import com.hl.afchelper.ui.view.MyToolBar;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.tiagohm.markdownview.MarkdownView;
 import br.tiagohm.markdownview.css.InternalStyleSheet;
 import br.tiagohm.markdownview.css.styles.Github;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 public class ContentFragment extends BaseBackFragment implements View.OnTouchListener {
@@ -63,7 +53,6 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
         fragment.setArguments (args);
         return fragment;
     }
-
     @Override
     public void onResume() {
         MyApplication.me().refreshResources(getActivity ());
@@ -80,7 +69,10 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate (R.layout.fragment_content, container, false);
         //初始化数据和布局
+
         initData ();
+        mMarkdownView = view.findViewById (R.id.markdown_view);
+        mMarkdownView.setBackgroundColor (Color.parseColor("#FF3F3F3F"));
         return attachToSwipeBack (view);
     }
 
@@ -135,9 +127,8 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
      * 初始化布局
      */
     private void initView() {
-        mMarkdownView = view.findViewById (R.id.markdown_view);
         imgUrlList = extractMessageByRegular (datas.getNew_content ());
-       MyToolBar mToolBar = view.findViewById (R.id.toolbar);
+       Toolbar mToolBar = view.findViewById (R.id.toolbar);
         setHasOptionsMenu(true);
         initToolbarNav (mToolBar);
        TextView mToolbarTitle = view.findViewById (R.id.toolbar_content_title);
@@ -149,7 +140,6 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
         //设置溢出菜单的icon，显示、隐藏溢出菜单弹出的窗口
         mToolBar.showOverflowMenu ();
         ((AppCompatActivity ) getActivity()).setSupportActionBar(mToolBar);
-        //mToolbarTitle.setText (table);
     }
 
     /**
@@ -158,7 +148,7 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     private void initWebView() {
         InternalStyleSheet css = new Github ();
         if (ConfigUtil.getBoolean (THEME_KEY, false)) {
-            css.addRule("body",  "font-size: 14.5px", "padding: 0px","color: #c8c8c8","background-color: #1A1A1A");
+            css.addRule("body",  "font-size: 14.5px", "padding: 0px","color: #c8c8c8","background-color: #FF3F3F3F");
             } else {
             css.addRule("body", "font-size: 14.5px",  "padding: 0px");
 
