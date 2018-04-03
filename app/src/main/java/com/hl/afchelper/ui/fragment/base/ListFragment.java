@@ -1,7 +1,5 @@
 package com.hl.afchelper.ui.fragment.base;
 
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -11,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -29,17 +26,17 @@ import android.widget.TextView;
 import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
 import com.hl.afchelper.Until.SearchDataHelper;
-import com.hl.afchelper.VideoActivity;
 import com.hl.afchelper.adapter.ListRecyclerAdapter;
 import com.hl.afchelper.base.BaseBackFragment;
 import com.hl.afchelper.entity.Data;
 import com.hl.afchelper.entity.db.MyDBOpenHelper;
 import com.hl.afchelper.listener.OnItemClickListener;
+import com.hl.afchelper.ui.view.VideoPlayerStandard;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.util.ArrayList;
 
-import cn.jzvd.JZVideoPlayerStandard;
+import cn.jzvd.JZVideoPlayer;
 
 
 public class ListFragment extends BaseBackFragment {
@@ -78,7 +75,7 @@ public class ListFragment extends BaseBackFragment {
     }
     @Override
     public void onResume() {
-        MyApplication.me().refreshResources(getActivity ());
+
         super.onResume();
     }
 
@@ -86,17 +83,18 @@ public class ListFragment extends BaseBackFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate (R.layout.fragment_list, container, false);
+        MyApplication.me().refreshResources(getActivity ());
         //初始化数据和布局
         initData ();
         initView ();
         return attachToSwipeBack (view);
     }
 
+
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd (savedInstanceState);
         // 入场动画结束后执行  优化,防动画卡顿
-
         _mActivity.getWindow ().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
@@ -154,7 +152,7 @@ public class ListFragment extends BaseBackFragment {
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
                 String videoUrl = datas.get (position).getVideoUrl ();
                if ((videoUrl.substring (videoUrl.lastIndexOf (".") + 1).equals ("mp4"))){
-                   JZVideoPlayerStandard.startFullscreen(getActivity (),JZVideoPlayerStandard.class, Environment.getExternalStorageDirectory ()+"/AFCHelper/1.mp4", "1111");
+                   VideoPlayerStandard.startFullscreen(getActivity (),VideoPlayerStandard.class, Environment.getExternalStorageDirectory ()+"/AFCHelper/1.mp4", "1111");
                    //Intent intent = new Intent (getActivity (),VideoActivity.class);
                    //startActivity (intent);
                }else {
@@ -261,13 +259,19 @@ public class ListFragment extends BaseBackFragment {
             dbRead.close ();
         }
     }
+
+
+
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        //你的代码
-         super.onConfigurationChanged(newConfig);
+    public boolean onBackPressedSupport() {
+        return JZVideoPlayer.backPress () || super.onBackPressedSupport ();
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        JZVideoPlayer.releaseAllVideos();
+    }
 }
 
 

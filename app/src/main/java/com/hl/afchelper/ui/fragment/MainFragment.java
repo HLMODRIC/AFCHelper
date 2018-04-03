@@ -55,13 +55,12 @@ public class MainFragment extends SupportFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-
+        MyApplication.me().refreshResources(getActivity ());
         initView(view);
         return view;
     }
     @Override
     public void onResume() {
-        MyApplication.me().refreshResources(getActivity ());
         super.onResume();
     }
     @Override

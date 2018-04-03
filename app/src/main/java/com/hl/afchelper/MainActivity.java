@@ -28,6 +28,7 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication.me().refreshResources(this);
          //数据库操作
         DBManager.openDatabase(getApplicationContext ());
         mImmersionBar = ImmersionBar.with(this);
@@ -62,7 +63,7 @@ public class MainActivity extends SupportActivity {
 
     @Override
     protected void onResume() {
-        MyApplication.me().refreshResources(this);
+
         super.onResume();
     }
 

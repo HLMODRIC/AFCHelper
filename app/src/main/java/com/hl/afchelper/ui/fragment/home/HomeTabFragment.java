@@ -92,13 +92,14 @@ public class HomeTabFragment extends BaseMainFragment {
     }
     @Override
     public void onResume() {
-        MyApplication.me().refreshResources(getActivity ());
+
         super.onResume();
     }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate (R.layout.fragment_home, container, false);
+        MyApplication.me().refreshResources(getActivity ());
         unbinder = ButterKnife.bind (this, view);
 
         //初始化布局,数据
@@ -222,6 +223,7 @@ public class HomeTabFragment extends BaseMainFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView ();
+        mBanner.stopAutoPlay ();
         unbinder.unbind ();
     }
 

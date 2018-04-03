@@ -45,7 +45,7 @@ public class PagerFragment extends SupportFragment{
     }
     @Override
     public void onResume() {
-        MyApplication.me().refreshResources(getActivity ());
+
         super.onResume();
     }
     @Override
@@ -59,6 +59,7 @@ public class PagerFragment extends SupportFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recycler_list, container, false);
+        MyApplication.me().refreshResources(getActivity ());
         initView(view);
         return view;
     }

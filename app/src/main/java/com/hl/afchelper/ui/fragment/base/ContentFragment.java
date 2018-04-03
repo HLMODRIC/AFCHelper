@@ -55,7 +55,7 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     }
     @Override
     public void onResume() {
-        MyApplication.me().refreshResources(getActivity ());
+
         super.onResume();
     }
 
@@ -69,10 +69,14 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate (R.layout.fragment_content, container, false);
         //初始化数据和布局
-
-        initData ();
+        MyApplication.me().refreshResources(getActivity ());
         mMarkdownView = view.findViewById (R.id.markdown_view);
-        mMarkdownView.setBackgroundColor (Color.parseColor("#FF3F3F3F"));
+        if (ConfigUtil.getBoolean (THEME_KEY, false)) {
+            mMarkdownView.setBackgroundColor (Color.parseColor("#FF3F3F3F"));
+        } else {
+            mMarkdownView.setBackgroundColor (Color.parseColor("#FFFFFFFF"));
+        }
+        initData ();
         return attachToSwipeBack (view);
     }
 
@@ -127,6 +131,7 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
      * 初始化布局
      */
     private void initView() {
+
         imgUrlList = extractMessageByRegular (datas.getNew_content ());
        Toolbar mToolBar = view.findViewById (R.id.toolbar);
         setHasOptionsMenu(true);
@@ -151,7 +156,6 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
             css.addRule("body",  "font-size: 14.5px", "padding: 0px","color: #c8c8c8","background-color: #FF3F3F3F");
             } else {
             css.addRule("body", "font-size: 14.5px",  "padding: 0px");
-
         }
 
         css.addRule("table th", "padding: 2px 4px");
