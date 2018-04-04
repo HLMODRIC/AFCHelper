@@ -6,16 +6,23 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
+import com.hl.afchelper.Until.ConfigUtil;
 import com.hl.afchelper.ui.fragment.home.HomeTabFragment;
 import com.hl.afchelper.ui.fragment.knowledge.KnowledgeTabFragment;
 import com.hl.afchelper.ui.fragment.search.SearchTabFragment;
@@ -34,11 +41,12 @@ public class MainFragment extends SupportFragment {
     public static final int SECOND = 1;
     public static final int THIRD = 2;
     public static final int FOUR = 3;
+    private static String THEME_KEY = "theme_mode";
 
     private SupportFragment[] mFragments = new SupportFragment[4];
 
     private BottomBar mBottomBar;
-    private Button mButton;
+    private Boolean isNight;
     private NavigationView navigationView;
 
 
@@ -56,13 +64,13 @@ public class MainFragment extends SupportFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         MyApplication.me().refreshResources(getActivity ());
+
+        isNight = ConfigUtil.getBoolean (THEME_KEY, false);
+
         initView(view);
         return view;
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -91,20 +99,31 @@ public class MainFragment extends SupportFragment {
 
     private void initView(View view) {
         navigationView = view.findViewById (R.id.nav_view);
-        View headerLayout = navigationView.getHeaderView(0);
-        mBottomBar = (BottomBar) view.findViewById(R.id.bottomBar);
-        mButton = headerLayout.findViewById (R.id.button_night);
-        Button mButton2 = headerLayout.findViewById (R.id.button_light);
-        mButton.setOnClickListener (new View.OnClickListener () {
+         mBottomBar = (BottomBar) view.findViewById(R.id.bottomBar);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                MyApplication.me().setTheme((AppCompatActivity)getActivity (), true);
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId ()){
+                    case R.id.app_bar_switch:
+                        Toast.makeText (getContext (),"y",Toast.LENGTH_SHORT).show ();
+                }
+
+                //在这里处理item的点击事件
+                return true;
             }
         });
-        mButton2.setOnClickListener (new View.OnClickListener () {
+         Menu menu = navigationView.getMenu ();
+        MenuItem item = menu.findItem (R.id.app_bar_switch);
+        Switch aSwitch = item.getActionView().findViewById(R.id.item_switch);
+        aSwitch.setChecked(isNight);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                MyApplication.me().setTheme((AppCompatActivity)getActivity (), false);
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    MyApplication.me().setTheme((AppCompatActivity)getActivity (), true);
+                }else {
+                    MyApplication.me().setTheme((AppCompatActivity)getActivity (), false);
+                }
             }
         });
 
@@ -135,6 +154,7 @@ public class MainFragment extends SupportFragment {
 
         });
     }
+
 
     @Override
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {

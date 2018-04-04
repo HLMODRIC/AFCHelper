@@ -29,11 +29,6 @@ public class SearchTabFragment extends BaseMainFragment {
     }
 
     @Override
-    public void onResume() {
-
-        super.onResume();
-    }
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search,container,false);
         MyApplication.me().refreshResources(getActivity ());

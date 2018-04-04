@@ -32,12 +32,14 @@
 
 
     <!-- NavigationView页面 -->
+    <string name="nav_item_daynight">夜间模式</string>
     <string name="nav_item_1">收藏文章</string>
     <string name="nav_item_2">收藏视频</string>
     <string name="nav_item_3">正文字体</string>
     <string name="nav_item_4">检查更新</string>
     <string name="nav_item_5">关于</string>
-    <string name="nav_item_6">注销登录</string>
+    <string name="nav_item_6">退出</string>
+
 
 
     <!-- list页面 -->

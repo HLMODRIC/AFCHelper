@@ -28,12 +28,14 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
         MyApplication.me().refreshResources(this);
          //数据库操作
         DBManager.openDatabase(getApplicationContext ());
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.init();   //所有子类都将继承这些相同的属性
-        setContentView(R.layout.activity_main);
+
 
         if (findFragment(MainFragment.class) == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());
@@ -60,14 +62,4 @@ public class MainActivity extends SupportActivity {
         // 设置横向(和安卓4.x动画相同)
         return new DefaultHorizontalAnimator ();
     }
-
-    @Override
-    protected void onResume() {
-
-        super.onResume();
-    }
-
-
-
-
 }

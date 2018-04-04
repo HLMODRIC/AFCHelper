@@ -45,7 +45,6 @@ public class ListFragment extends BaseBackFragment {
     private ArrayList<Data> SearchDatas;
     private String sql;
     private String table;
-    private String oldNewsText = null;
     private TextView mToolbarTitle;
     private static final String ARG_SQL = "arg_sql";
     private static final String ARG_TABLE = "arg_table";

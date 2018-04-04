@@ -90,11 +90,7 @@ public class HomeTabFragment extends BaseMainFragment {
         fragment.setArguments (args);
         return fragment;
     }
-    @Override
-    public void onResume() {
 
-        super.onResume();
-    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -53,11 +53,6 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
         fragment.setArguments (args);
         return fragment;
     }
-    @Override
-    public void onResume() {
-
-        super.onResume();
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,13 +65,13 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
         view = inflater.inflate (R.layout.fragment_content, container, false);
         //初始化数据和布局
         MyApplication.me().refreshResources(getActivity ());
+        initView ();
         mMarkdownView = view.findViewById (R.id.markdown_view);
         if (ConfigUtil.getBoolean (THEME_KEY, false)) {
             mMarkdownView.setBackgroundColor (Color.parseColor("#FF3F3F3F"));
         } else {
             mMarkdownView.setBackgroundColor (Color.parseColor("#FFFFFFFF"));
         }
-        initData ();
         return attachToSwipeBack (view);
     }
 
@@ -84,7 +79,6 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView (savedInstanceState);
         //这里注意的是，因为我是在fragment中创建MyFragmentPagerAdapter，所以要传getChildFragmentManager()
-        initView ();
         initWebView ();
     }
 
@@ -92,7 +86,6 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd (savedInstanceState);
         // 入场动画结束后执行  优化,防动画卡顿
-
         _mActivity.getWindow ().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 

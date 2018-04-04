@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="none">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <item
+    <item
+        android:id="@+id/app_bar_switch"
+        android:title="@string/nav_item_daynight"
+        app:actionLayout="@layout/switch_item"
+        android:icon="@drawable/nav_item_daynight"/>
+    <item
             android:id="@+id/nav_item_1"
             android:title="@string/nav_item_1"
             android:icon="@drawable/nav_item_1"/>
@@ -26,7 +31,4 @@
             android:id="@+id/nav_item_6"
             android:title="@string/nav_item_6"
             android:icon="@drawable/nav_item_6"/>
-
-    </group>
-
 </menu>
