@@ -15,6 +15,7 @@ import com.hl.afchelper.MyApplication;
 import com.hl.afchelper.R;
 import com.hl.afchelper.base.BaseMainFragment;
 import com.hl.afchelper.ui.fragment.MainFragment;
+import com.hl.afchelper.ui.fragment.base.ImageViewFragment;
 import com.hl.afchelper.ui.fragment.base.ListFragment;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -79,14 +80,14 @@ public class SearchTabFragment extends BaseMainFragment {
         searchButton5.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_5), "select * from ip_code"));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ImageViewFragment.newInstance ("2.jpg"));
 
             }
         });
         searchButton6.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_6), "select * from screw_code"));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ImageViewFragment.newInstance ("1.jpg"));
 
             }
         });

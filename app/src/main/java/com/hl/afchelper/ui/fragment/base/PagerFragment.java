@@ -113,6 +113,7 @@ public class PagerFragment extends SupportFragment{
     @Override
     public void onDestroy() {
         super.onDestroy ();
+        mData = null;
         RefWatcher refWatcher = MyApplication.getRefWatcher (getActivity ());
         refWatcher.watch (this);
     }

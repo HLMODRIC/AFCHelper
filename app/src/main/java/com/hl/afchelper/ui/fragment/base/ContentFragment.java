@@ -110,6 +110,7 @@ public class ContentFragment extends BaseBackFragment implements View.OnTouchLis
     @Override
     public void onDestroy() {
         super.onDestroy ();
+        datas = null;
         RefWatcher refWatcher = MyApplication.getRefWatcher (getActivity ());
         refWatcher.watch (this);
     }

@@ -221,6 +221,8 @@ public class HomeTabFragment extends BaseMainFragment {
         super.onDestroyView ();
         mBanner.stopAutoPlay ();
         unbinder.unbind ();
+        ListPhotos.clear ();
+        ListPhotos = null;
     }
 
     @Override

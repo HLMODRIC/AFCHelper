@@ -109,6 +109,8 @@ public class ListFragment extends BaseBackFragment {
     @Override
     public void onDestroy() {
         super.onDestroy ();
+        datas = null;
+        SearchDatas = null;
         RefWatcher refWatcher = MyApplication.getRefWatcher (getActivity ());
         refWatcher.watch (this);
     }
