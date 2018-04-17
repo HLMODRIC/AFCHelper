@@ -47,6 +47,9 @@ public class SearchTabFragment extends BaseMainFragment {
         Button searchButton4 = view.findViewById (R.id.search_bt_4);
         Button searchButton5 = view.findViewById (R.id.search_bt_5);
         Button searchButton6 = view.findViewById (R.id.search_bt_6);
+        Button searchButton7 = view.findViewById (R.id.search_bt_7);
+        Button searchButton8 = view.findViewById (R.id.search_bt_8);
+        Button searchButton9 = view.findViewById (R.id.search_bt_9);
         searchButton.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -65,7 +68,7 @@ public class SearchTabFragment extends BaseMainFragment {
         searchButton3.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_3), "select * from mbc_code"));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_3), "select * from line_marked where id < 100"));
 
 
             }
@@ -73,24 +76,52 @@ public class SearchTabFragment extends BaseMainFragment {
         searchButton4.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_4), "select * from card_code"));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_4), "select * from mbc_code"));
 
             }
         });
         searchButton5.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                ((MainFragment ) getParentFragment()).startBrotherFragment(ImageViewFragment.newInstance ("2.jpg"));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_5), "select * from card_code"));
 
             }
         });
         searchButton6.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                ((MainFragment ) getParentFragment()).startBrotherFragment(ImageViewFragment.newInstance ("1.jpg"));
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_6), "select * from line_marked where id between 100 and 199"));
 
             }
         });
+        searchButton7.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_7), "select * from line_marked where id between 200 and 299"));
+
+            }
+        });
+        searchButton8.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_8), "select * from ip_code"));
+
+            }
+        });
+        searchButton9.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.search_button_text_9), "select * from line_marked where id between 300 and 350"));
+
+            }
+        });
+       /* searchButton6.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ImageViewFragment.newInstance ("1.jpg"));
+
+            }
+        });*/
     }
 
 

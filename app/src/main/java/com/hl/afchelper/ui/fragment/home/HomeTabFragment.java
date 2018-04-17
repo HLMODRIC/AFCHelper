@@ -186,6 +186,12 @@ public class HomeTabFragment extends BaseMainFragment {
                 ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.home_button_text_6),"select * from basic where id between 500 and 599"));
             }
         });
+        mLlItem7.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                ((MainFragment ) getParentFragment()).startBrotherFragment(ListFragment.newInstance (getResources ().getString (R.string.home_button_text_7),"select * from basic where id between 600 and 699"));
+            }
+        });
 
     }
 

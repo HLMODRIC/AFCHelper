@@ -29,7 +29,7 @@ public class ConfigUtil {
         SharedPreferences sharedPref = getSharedPreferences();
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -43,7 +43,7 @@ public class ConfigUtil {
         SharedPreferences sharedPref = getSharedPreferences();
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -57,7 +57,7 @@ public class ConfigUtil {
         SharedPreferences sharedPref = getSharedPreferences();
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putLong(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -71,7 +71,7 @@ public class ConfigUtil {
         SharedPreferences sharedPref = getSharedPreferences();
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     /**

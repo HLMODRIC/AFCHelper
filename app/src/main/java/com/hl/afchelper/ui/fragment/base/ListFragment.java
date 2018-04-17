@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
@@ -20,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -54,6 +56,7 @@ public class ListFragment extends BaseBackFragment {
     private View view;
     private Toolbar mToolBar;
     private Cursor mCursor;
+    private int light;
 
 
     public static ListFragment newInstance(String table,String sql) {
@@ -152,15 +155,25 @@ public class ListFragment extends BaseBackFragment {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
                 String videoUrl = datas.get (position).getVideoUrl ();
-               if ((videoUrl.substring (videoUrl.lastIndexOf (".") + 1).equals ("mp4"))){
-                   VideoPlayerStandard.startFullscreen(getActivity (),VideoPlayerStandard.class, Environment.getExternalStorageDirectory ()+"/AFCHelper/1.mp4", "1111");
-                   //Intent intent = new Intent (getActivity (),VideoActivity.class);
-                   //startActivity (intent);
-               }else {
-                   extraTransaction ()
-                           .start (ContentFragment.newInstance (datas.get (position)));
+                String imgUrl = datas.get (position).getImageUrl ();
+                String v = videoUrl.substring (videoUrl.lastIndexOf (".") + 1);
+                String i = imgUrl.substring (imgUrl.lastIndexOf (".") + 1);
+                if ("mp4".equals (v)) {
+                    VideoPlayerStandard.startFullscreen (getActivity (), VideoPlayerStandard.class, Environment.getExternalStorageDirectory () + "/AFCHelper/1.webm", datas.get (position).getNew_title ());
+                } else if ("jpg".equals (i)) {
+                    extraTransaction ()
+                            .start (ImageViewFragment.newInstance (imgUrl));
+
+                } else if ("png".equals (i)) {
+                    extraTransaction ()
+                            .start (ImageViewFragment.newInstance (imgUrl));
+
+                } else {
+                    extraTransaction ()
+                            .start (ContentFragment.newInstance (datas.get (position)));
+
+                }
                }
-            }
         });
     }
 
@@ -273,6 +286,7 @@ public class ListFragment extends BaseBackFragment {
         super.onPause();
         JZVideoPlayer.releaseAllVideos();
     }
+
 }
 
 

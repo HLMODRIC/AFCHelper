@@ -33,7 +33,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,6 +84,17 @@
         android:text="@string/search_button_text_2"
         android:textColor="@color/text"/>
 
+      <Button
+          android:id="@+id/search_bt_3"
+          style="@style/Widget.AppCompat.Button"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:layout_margin="5dp"
+          android:background="@color/botton"
+          android:gravity="center"
+          android:text="@string/search_button_text_3"
+          android:textColor="@color/text"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="25dp"
@@ -105,17 +117,6 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/search_bt_3"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:background="@color/botton"
-        android:gravity="center"
-        android:text="@string/search_button_text_3"
-        android:textColor="@color/text"/>
-
-    <Button
         android:id="@+id/search_bt_4"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"
@@ -126,27 +127,6 @@
         android:text="@string/search_button_text_4"
         android:textColor="@color/text"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:background="@color/search_title">
-
-        <View
-            android:layout_width="5dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="5dp"
-            android:background="@color/md_blue_500"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:textSize="@dimen/textSize_15"
-            android:text="@string/search_tab_text_3" />
-    </LinearLayout>
-
     <Button
         android:id="@+id/search_bt_5"
         style="@style/Widget.AppCompat.Button"
@@ -155,10 +135,52 @@
         android:layout_margin="5dp"
         android:background="@color/botton"
         android:gravity="center"
-        android:textSize="@dimen/textSize_15"
         android:text="@string/search_button_text_5"
         android:textColor="@color/text"/>
 
+            <Button
+                android:id="@+id/search_bt_6"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:background="@color/botton"
+                android:gravity="center"
+                android:text="@string/search_button_text_6"
+                android:textColor="@color/text"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@color/search_title">
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/md_blue_500"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:textSize="@dimen/textSize_15"
+                    android:text="@string/search_tab_text_3" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/search_bt_7"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:background="@color/botton"
+                android:gravity="center"
+                android:textSize="@dimen/textSize_15"
+                android:text="@string/search_button_text_7"
+                android:textColor="@color/text"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="25dp"
@@ -181,14 +203,47 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/search_bt_6"
+        android:id="@+id/search_bt_8"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="5dp"
         android:background="@color/botton"
         android:gravity="center"
-        android:text="@string/search_button_text_6"
+        android:textSize="@dimen/textSize_15"
+        android:text="@string/search_button_text_8"
+        android:textColor="@color/text"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/search_title">
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/md_blue_500"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textSize="@dimen/textSize_15"
+            android:text="@string/search_tab_text_5" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/search_bt_9"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:background="@color/botton"
+        android:gravity="center"
+        android:text="@string/search_button_text_9"
         android:textColor="@color/text"/>
         </LinearLayout>
     </ScrollView>

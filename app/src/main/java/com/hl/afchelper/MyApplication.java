@@ -21,6 +21,7 @@ public class MyApplication extends Application {
     private boolean isNight;
     private static String THEME_KEY = "theme_mode";
 
+
     public static MyApplication me() {
         if (appContext == null) {
             appContext = new MyApplication();
@@ -63,6 +64,7 @@ public class MyApplication extends Application {
         MyApplication leakApplication = (MyApplication ) context.getApplicationContext();
         return leakApplication.refWatcher;
     }
+
 
     private void initThemeMode() {
         isNight = ConfigUtil.getBoolean(THEME_KEY, false);
